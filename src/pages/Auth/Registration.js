@@ -38,16 +38,34 @@ const Registration = () => {
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (validate(event)) {
-      console.log("Form is valid");
-      const data = new FormData(event.currentTarget);
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
+  if (validate(event)) {
+    const formData = new FormData(event.currentTarget);
+    const formProps = Object.fromEntries(formData.entries());
+
+    formProps.birthdate = birthdate;
+    try {
+      const response = await fetch('http://backend/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formProps),
       });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Submission successful', data);
+      // Handle success 
+    } catch (error) {
+      console.error('Submission failed', error);
+      // Handle errors
+    }
     } else {
       console.log("Form is invalid", errors);
     }
@@ -111,7 +129,7 @@ const Registration = () => {
                   helperText={errors.email}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -120,8 +138,10 @@ const Registration = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={!!errors.password}
+                  helperText={errors.password}
                 />
-              </Grid> */}
+              </Grid>
 
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
