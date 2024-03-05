@@ -7,6 +7,7 @@ import UserDetails from './pages/User/UserDetails';
 import UserProfile from './pages/User/UserProfile';
 import CreateGoal from './pages/Goals/CreateGoal';
 import DisplayGoal from './pages/Goals/DisplayGoal';
+import Copyright from './components/Copyright';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/display-goal" element={<DisplayGoal />} />
         <Route path="/" element={<Login />} />
       </Routes>
+      <Copyright sx={{ mt: 5 }} />
     </BrowserRouter>
   );
 }
