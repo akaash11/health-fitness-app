@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { createTheme,ThemeProvider, Container, CssBaseline, Box, Typography, Grid, TextField, Button, MenuItem, FormControl, InputLabel, Select, Avatar, FormHelperText } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { createTheme,ThemeProvider, Container, CssBaseline, Box, Typography, Grid, TextField, Button, MenuItem, FormControl, InputLabel, Select, Avatar, FormHelperText, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'; // Ensure this icon is imported
 
 const defaultTheme = createTheme();
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const CreateGoal = () => {
   const [goal, setGoal] = useState('');
@@ -10,6 +16,8 @@ const CreateGoal = () => {
   const [goalType, setGoalType] = useState('');
   const [goalTarget, setGoalTarget] = useState('');
   const [errors, setErrors] = useState({});
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const navigate = useNavigate();
 
   const validateForm = () => {
     let tempErrors = {};
@@ -21,15 +29,54 @@ const CreateGoal = () => {
     return Object.values(tempErrors).every(x => x === "");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
       console.log({ goal, activity, goalType, goalTarget });
-      // Here, you can proceed with form submission, such as sending data to a server.
+      const formData = {
+        goal,
+        activity,
+        goalType,
+        goalTarget: parseFloat(goalTarget),
+      };
+  
+      try {
+        const response = await fetch('http://backend/goals/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        console.log(data);
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          navigate('/displaygoals');
+        }, 3000);
+      } catch (error) {
+        console.error('Submission error:', error);
+      }
     }
+  };
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
   };
   return(
   <ThemeProvider theme={defaultTheme}>
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          Goal created successfully!
+        </Alert>
+      </Snackbar>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
