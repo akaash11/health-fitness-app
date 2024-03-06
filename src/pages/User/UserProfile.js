@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Paper, Avatar } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Importing the profile icon
+import { userData as dummyUserData} from '../../constants/Dummy';
 
 const defaultTheme = createTheme();
 
@@ -31,8 +32,9 @@ const UserProfile = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setUserData(data);
+        //setUserData(data);
       } catch (error) {
+        setUserData(dummyUserData)
         console.error('Failed to fetch user data:', error);
       }
     };

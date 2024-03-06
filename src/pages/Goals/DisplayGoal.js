@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Button, Paper, Typography, LinearProgress, Box, Divider } from '@mui/material';
 import { styled } from '@mui/system';
-import { goals as dummygoals } from '../../constants/Goals';
+import { goals as dummygoals } from '../../constants/Dummy';
 
 const DisplayGoals = () => {
   const [goals, setGoals] = useState([]);

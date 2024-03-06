@@ -40,3 +40,14 @@ export const goals = [
       "daysLeft": 2
     }
   ]
+export const userData = {
+  firstName: 'Akaash',
+  lastName: 'Trivedi',
+  email: 'atrivedi@scu.edu',
+  city: 'Santa Clara',
+  state: 'CA',
+  country: 'USA',
+  weight: '175',
+  heightFt: '5',
+  heightIn: '9'
+};
