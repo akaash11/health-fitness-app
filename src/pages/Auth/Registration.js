@@ -15,17 +15,19 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
+import { useNavigate } from 'react-router-dom';
 const defaultTheme = createTheme();
 
 const Registration = () => {
 
   const [birthdate, setBirthdate] = React.useState(null);
   const [errors, setErrors] = React.useState({});
+  const navigate = useNavigate();
   
   const validate = (event) => {
     const data = new FormData(event.currentTarget);
     let tempErrors = {};
-    const requiredFields = ['firstName', 'lastName', 'email', 'password', 'city', 'state', 'country', 'weight', 'heightFt', 'heightIn'];
+    const requiredFields = ['firstName', 'lastName', 'email', 'city', 'state', 'country', 'weight', 'heightFt', 'heightIn'];
     requiredFields.forEach(field => {
       if (!data.get(field)) {
         tempErrors = { ...tempErrors, [field]: 'This field is required' };
@@ -129,7 +131,7 @@ const Registration = () => {
                   helperText={errors.email}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -141,7 +143,7 @@ const Registration = () => {
                   error={!!errors.password}
                   helperText={errors.password}
                 />
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -244,7 +246,7 @@ const Registration = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" onClick={() => navigate('/login')}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
