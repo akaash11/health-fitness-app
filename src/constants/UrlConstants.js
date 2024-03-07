@@ -1,0 +1,1 @@
+export const ELEVATE_HEALTH_URL = "http://localhost:8080"

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createTheme,ThemeProvider, Container, CssBaseline, Box, Typography, Grid, TextField, Button, MenuItem, FormControl, InputLabel, Select, Avatar, FormHelperText, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'; // Ensure this icon is imported
-
+import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 const defaultTheme = createTheme();
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -41,7 +41,7 @@ const CreateGoal = () => {
       };
   
       try {
-        const response = await fetch('http://backend/goals/create', {
+        const response = await fetch(`${ELEVATE_HEALTH_URL}/goals/create`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

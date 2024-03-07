@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Button, Paper, Typography, LinearProgress, Box, Divider } from '@mui/material';
 import { styled } from '@mui/system';
 import { goals as dummygoals } from '../../constants/Dummy';
+import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 
 const DisplayGoals = () => {
   const [goals, setGoals] = useState([]);
@@ -11,7 +12,7 @@ const DisplayGoals = () => {
   useEffect(() => {
     const fetchGoals = async () => {
       try {
-        const response = await fetch('YOUR_BACKEND_ENDPOINT/goals');
+        const response = await fetch(`${ELEVATE_HEALTH_URL}/goals`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

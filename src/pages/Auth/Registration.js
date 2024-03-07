@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
+import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 const defaultTheme = createTheme();
 
 const Registration = () => {
@@ -47,7 +47,7 @@ const Registration = () => {
 
     formProps.birthdate = birthdate;
     try {
-      const response = await fetch('http://backend/register', {
+      const response = await fetch(`${ELEVATE_HEALTH_URL}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

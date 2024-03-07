@@ -3,7 +3,7 @@ import { Container, Typography, Grid, Paper, Avatar } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Importing the profile icon
 import { userData as dummyUserData} from '../../constants/Dummy';
-
+import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 const defaultTheme = createTheme();
 
 const UserProfile = () => {
@@ -22,7 +22,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('http://backend/userProfile', {
+        const response = await fetch(`${ELEVATE_HEALTH_URL}/userProfile`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
