@@ -4,6 +4,8 @@ import { createTheme,ThemeProvider, Container, CssBaseline, Box, Typography, Gri
 import MuiAlert from '@mui/material/Alert';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'; // Ensure this icon is imported
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
+import { useUser } from '../../context/UserContext';
+
 const defaultTheme = createTheme();
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -18,6 +20,7 @@ const CreateGoal = () => {
   const [errors, setErrors] = useState({});
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
+  const { userEmail } = useUser();
 
   const validateForm = () => {
     let tempErrors = {};
@@ -38,10 +41,11 @@ const CreateGoal = () => {
         activity,
         goalType,
         goalTarget: parseFloat(goalTarget),
+        email: userEmail,
       };
-  
+      const encodedEmail = encodeURIComponent(userEmail);
       try {
-        const response = await fetch(`${ELEVATE_HEALTH_URL}/goals/create`, {
+        const response = await fetch(`${ELEVATE_HEALTH_URL}/api/goals`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

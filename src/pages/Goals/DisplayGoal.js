@@ -4,15 +4,18 @@ import { Container, Button, Paper, Typography, LinearProgress, Box, Divider } fr
 import { styled } from '@mui/system';
 import { goals as dummygoals } from '../../constants/Dummy';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
+import { useUser } from '../../context/UserContext';
 
 const DisplayGoals = () => {
   const [goals, setGoals] = useState([]);
   const navigate = useNavigate();
+  const { userEmail } = useUser();
   
   useEffect(() => {
+    const encodedEmail = encodeURIComponent(userEmail);
     const fetchGoals = async () => {
       try {
-        const response = await fetch(`${ELEVATE_HEALTH_URL}/goals`);
+        const response = await fetch(`${ELEVATE_HEALTH_URL}/api/goals?email=${encodedEmail}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

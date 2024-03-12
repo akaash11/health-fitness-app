@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
 
 const defaultTheme = createTheme();
 
@@ -22,6 +23,7 @@ const Login = () => {
   const [signupStatus, setSignupStatus] = useState('');
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
+  const { setUserEmail } = useUser();
 
   const sendOtp = async () => {
     try {
@@ -31,9 +33,10 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email }),
+        //body: JSON.stringify(email),
       });
 
-      if (response.ok) {
+      if (response == "ok") {
         const result = await response.json();
         console.log('OTP Sent Successfully:', result);
         alert('OTP sent successfully!');
@@ -65,10 +68,12 @@ const Login = () => {
         body: JSON.stringify(loginData),
       });
 
-      if (response.ok) {
+      if (response == "ok") {
         const result = await response.json();
         console.log('Login Successful:', result);
         setSignupStatus('Login successful!');
+        setUserEmail(loginData.email);
+        navigate('/profile');
       } else {
         console.error('Login Failed:', response.statusText);
         setSignupStatus('Login failed. Please try again.');

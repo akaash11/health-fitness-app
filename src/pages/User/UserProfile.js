@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Paper, Avatar } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Importing the profile icon
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { userData as dummyUserData} from '../../constants/Dummy';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
+import { useUser } from '../../context/UserContext';
+
 const defaultTheme = createTheme();
 
 const UserProfile = () => {
+  const { userEmail } = useUser();
   const [userData, setUserData] = useState({
     firstName: '',
     lastName: '',
@@ -21,8 +24,11 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      // Ensure userEmail is encoded to be URL-safe
+      const encodedEmail = encodeURIComponent(userEmail);
+      const url = `${ELEVATE_HEALTH_URL}/api/userProfile?email=${encodedEmail}`;
       try {
-        const response = await fetch(`${ELEVATE_HEALTH_URL}/userProfile`, {
+        const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -32,15 +38,20 @@ const UserProfile = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        //setUserData(data);
+        setUserData(data);
       } catch (error) {
-        setUserData(dummyUserData)
         console.error('Failed to fetch user data:', error);
+        // Using dummy data as fallback
+        setUserData(dummyUserData);
       }
     };
 
-    fetchUserData();
-  }, []);
+    if (userEmail) {
+      fetchUserData();
+    } else {
+      console.log("User email not available");
+    }
+  }, [userEmail]); // Depend on userEmail so the effect runs again if it changes
 
   return (
     <ThemeProvider theme={defaultTheme}>

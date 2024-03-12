@@ -16,12 +16,15 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
+
 const defaultTheme = createTheme();
 
 const Registration = () => {
 
   const [birthdate, setBirthdate] = React.useState(null);
   const [errors, setErrors] = React.useState({});
+  const { setUserEmail } = useUser();
   const navigate = useNavigate();
   
   const validate = (event) => {
@@ -63,10 +66,13 @@ const Registration = () => {
 
       const data = await response.json();
       console.log('Submission successful', data);
-      // Handle success 
+      setUserEmail(formProps.email);
+      navigate('/profile');
     } catch (error) {
       console.error('Submission failed', error);
-      // Handle errors
+      // Delete this code
+      setUserEmail(formProps.email);
+      navigate('/profile');
     }
     } else {
       console.log("Form is invalid", errors);
