@@ -35,10 +35,10 @@ const Login = () => {
         body: JSON.stringify({ email }),
         //body: JSON.stringify(email),
       });
-
-      if (response == "ok") {
-        const result = await response.json();
-        console.log('OTP Sent Successfully:', result);
+      const responseText = await response.text();
+      console.log(`Response received: '${responseText}'`);
+      if (responseText.trim() == "ok") {
+        console.log('OTP Sent Successfully:');
         alert('OTP sent successfully!');
       } else {
         console.error('Failed to send OTP:', response.statusText);
@@ -67,10 +67,11 @@ const Login = () => {
         },
         body: JSON.stringify(loginData),
       });
+      const responseText = await response.text();
+      console.log(`Response received: '${responseText}'`);
 
-      if (response == "ok") {
-        const result = await response.json();
-        console.log('Login Successful:', result);
+      if (responseText.trim() == "ok") {
+        console.log('Login Successful');
         setSignupStatus('Login successful!');
         setUserEmail(loginData.email);
         navigate('/profile');

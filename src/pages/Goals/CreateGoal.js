@@ -43,7 +43,6 @@ const CreateGoal = () => {
         goalTarget: parseFloat(goalTarget),
         email: userEmail,
       };
-      const encodedEmail = encodeURIComponent(userEmail);
       try {
         const response = await fetch(`${ELEVATE_HEALTH_URL}/api/goals`, {
           method: 'POST',
@@ -56,12 +55,11 @@ const CreateGoal = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-  
-        const data = await response.json();
-        console.log(data);
+        const responseText = await response.text();
+        console.log(`Response received: '${responseText}'`);
         setOpenSnackbar(true);
         setTimeout(() => {
-          navigate('/displaygoals');
+          navigate('/display-goal');
         }, 3000);
       } catch (error) {
         console.error('Submission error:', error);

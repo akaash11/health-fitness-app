@@ -20,12 +20,10 @@ const DisplayGoals = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        // uncomment once API works 
-        //setGoals(data); 
+        setGoals(data); 
       } catch (error) {
         console.error("Fetching goals failed: ", error);
         setGoals(dummygoals)
-        // Handle errors here, maybe set an error state and display it
       }
     };
 

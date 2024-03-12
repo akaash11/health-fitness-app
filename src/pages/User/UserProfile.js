@@ -24,7 +24,6 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      // Ensure userEmail is encoded to be URL-safe
       const encodedEmail = encodeURIComponent(userEmail);
       const url = `${ELEVATE_HEALTH_URL}/api/userProfile?email=${encodedEmail}`;
       try {
@@ -51,7 +50,7 @@ const UserProfile = () => {
     } else {
       console.log("User email not available");
     }
-  }, [userEmail]); // Depend on userEmail so the effect runs again if it changes
+  }, [userEmail]);
 
   return (
     <ThemeProvider theme={defaultTheme}>

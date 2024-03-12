@@ -63,16 +63,18 @@ const Registration = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      const responseText = await response.text();
+      console.log(`Response received: '${responseText}'`);
 
-      const data = await response.json();
-      console.log('Submission successful', data);
+      //const data = await response.json();
+      console.log('Submission successful');
       setUserEmail(formProps.email);
       navigate('/profile');
     } catch (error) {
       console.error('Submission failed', error);
       // Delete this code
-      setUserEmail(formProps.email);
-      navigate('/profile');
+      /* setUserEmail(formProps.email);
+      navigate('/profile'); */
     }
     } else {
       console.log("Form is invalid", errors);
@@ -157,7 +159,8 @@ const Registration = () => {
                     label="Birthdate"
                     value={birthdate}
                     onChange={(newValue) => {
-                      setBirthdate(newValue);
+                      const formattedDate = newValue ? newValue.format("YYYY-MM-DD") : null;
+                      setBirthdate(formattedDate);
                     }}
                     renderInput={(params) => (
                       <TextField 
