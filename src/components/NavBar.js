@@ -19,11 +19,11 @@ const Navbar = () => (
         <Button color="inherit" component={RouterLink} to="/profile">
           Profile
         </Button>
-        <Button color="inherit" component={RouterLink} to="/create-goal">
-          Create Goal
-        </Button>
         <Button color="inherit" component={RouterLink} to="/display-goal">
-          Display Goal
+          Goals
+        </Button>
+        <Button color="inherit" component={RouterLink} to="/recommendation">
+          Recommendation
         </Button>
       </Toolbar>
     </Container>

@@ -41,7 +41,7 @@ const UserProfile = () => {
       } catch (error) {
         console.error('Failed to fetch user data:', error);
         // Using dummy data as fallback
-        setUserData(dummyUserData);
+        //setUserData(dummyUserData);
       }
     };
 

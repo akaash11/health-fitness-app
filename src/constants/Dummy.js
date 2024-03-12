@@ -51,3 +51,39 @@ export const userData = {
   heightFt: '5',
   heightIn: '9'
 };
+
+export const workoutData = {
+  "bmi": "18",
+  "plans": [
+    {
+      "exercise": "Strength and Endurance Plan",
+      "fitnessGoal": "Improve overall fitness and endurance",
+      "activity": "Combination of strength training and cardiovascular exercise",
+      "weeklyPlan": [
+        "3 days of strength training (full-body workouts with weights or bodyweight exercises)",
+        "2 days of cardiovascular exercise (running, cycling, or HIIT workouts)",
+        "1 day of active recovery (yoga, stretching, or light activity)"
+      ]
+    },
+    {
+      "exercise": "High-Intensity Interval Training (HIIT) Plan",
+      "fitnessGoal": "Burn fat and improve cardiovascular health",
+      "activity": "HIIT workouts targeting different muscle groups",
+      "weeklyPlan": [
+        "4 days of HIIT workouts (e.g., Tabata intervals, circuit training)",
+        "1 day of low-intensity steady-state cardio (e.g., brisk walking)",
+        "1 day of rest or optional light activity"
+      ]
+    },
+    {
+      "exercise": "Flexibility and Mobility Plan",
+      "fitnessGoal": "Enhance flexibility, mobility, and joint health",
+      "activity": "Yoga, Pilates, and mobility exercises",
+      "weeklyPlan": [
+        "3 days of yoga or Pilates sessions focusing on flexibility and core strength",
+        "2 days of mobility exercises (foam rolling, dynamic stretches)",
+        "2 days of rest or light activity (walking, hiking)"
+      ]
+    }
+  ]
+}
