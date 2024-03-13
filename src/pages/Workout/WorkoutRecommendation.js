@@ -59,7 +59,7 @@ const WorkoutRecommendation = () => {
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: '20px', boxShadow: 3 }}>
               <CardMedia
                 component="img"
-                height="300"
+                height="400"
                 image={`/${plan.image}.jpg`}
                 alt="Exercise Image"
               />

@@ -3,10 +3,10 @@ import { Typography, Box, LinearProgress, Card, CardContent } from '@mui/materia
 
 const BMIProgressBar = ({ bmi }) => {
   const calculateProgress = (bmi) => {
-    if (bmi < 18.5) return (bmi / 18.5) * 100;
-    if (bmi <= 24.9) return ((bmi - 18.5) / (24.9 - 18.5)) * 100 + 100;
-    if (bmi <= 29.9) return ((bmi - 25) / (29.9 - 25)) * 100 + 200;
-    if (bmi > 29.9) return 300;
+    if (bmi < 18.5) return 33;
+    if (bmi <= 24.9) return 63;
+    if (bmi <= 29.9) return 90
+    if (bmi > 29.9) return 100;
   };
 
   const getProgressColor = (bmi) => {
@@ -25,12 +25,17 @@ const BMIProgressBar = ({ bmi }) => {
             <LinearProgress
               variant="determinate"
               value={calculateProgress(bmi)}
-              sx={{ height: 10, borderRadius: 5, backgroundColor: '#eee' }}
-              style={{ color: getProgressColor(bmi) }}
+              sx={{ 
+                height: 10, 
+                borderRadius: 5, 
+                '& .MuiLinearProgress-bar': {
+                  backgroundColor: getProgressColor(bmi),
+                } 
+              }}
             />
           </Box>
           <Box sx={{ minWidth: 35 }}>
-            <Typography variant="body2" color="text.secondary">{`${Math.round(calculateProgress(bmi))}%`}</Typography>
+            <Typography variant="body2" color="text.secondary"></Typography>
           </Box>
         </Box>
         <Typography variant="body2" sx={{ mt: 2 }}>
