@@ -3,6 +3,7 @@ import { Card, CardContent, Typography, CardMedia, Grid } from '@mui/material';
 import { workoutData as dummyWorkoutData} from '../../constants/Dummy';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 import { useUser } from '../../context/UserContext';
+import BMIProgressBar from '../../components/BMIProgressBar';
 
 const WorkoutRecommendation = () => {
   const [workoutData, setWorkoutData] = useState({ bmi: '', plans: [] });
@@ -39,6 +40,7 @@ const WorkoutRecommendation = () => {
 
   return (
     <div>
+      <BMIProgressBar bmi={workoutData.bmi} />
       <Typography
         variant="h4"
         gutterBottom
@@ -57,8 +59,8 @@ const WorkoutRecommendation = () => {
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: '20px', boxShadow: 3 }}>
               <CardMedia
                 component="img"
-                height="140"
-                image="YOUR_IMAGE_URL_HERE" 
+                height="300"
+                image={`/${plan.image}.jpg`}
                 alt="Exercise Image"
               />
               <CardContent sx={{ flexGrow: 1 }}>
