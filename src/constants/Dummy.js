@@ -59,6 +59,7 @@ export const workoutData = {
       "exercise": "Strength and Endurance Plan",
       "fitnessGoal": "Improve overall fitness and endurance",
       "activity": "Combination of strength training and cardiovascular exercise",
+      "image": "cycling_18",
       "weeklyPlan": [
         "3 days of strength training (full-body workouts with weights or bodyweight exercises)",
         "2 days of cardiovascular exercise (running, cycling, or HIIT workouts)",
@@ -69,6 +70,7 @@ export const workoutData = {
       "exercise": "High-Intensity Interval Training (HIIT) Plan",
       "fitnessGoal": "Burn fat and improve cardiovascular health",
       "activity": "HIIT workouts targeting different muscle groups",
+      "image": "hiit_18",
       "weeklyPlan": [
         "4 days of HIIT workouts (e.g., Tabata intervals, circuit training)",
         "1 day of low-intensity steady-state cardio (e.g., brisk walking)",
@@ -79,6 +81,7 @@ export const workoutData = {
       "exercise": "Flexibility and Mobility Plan",
       "fitnessGoal": "Enhance flexibility, mobility, and joint health",
       "activity": "Yoga, Pilates, and mobility exercises",
+      "image": "hiking_18",
       "weeklyPlan": [
         "3 days of yoga or Pilates sessions focusing on flexibility and core strength",
         "2 days of mobility exercises (foam rolling, dynamic stretches)",
