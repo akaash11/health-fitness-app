@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Paper, Avatar } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { userData as dummyUserData} from '../../constants/Dummy';
+import { userData as dummyUserData } from '../../constants/Dummy';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 import { useUser } from '../../context/UserContext';
 
@@ -52,6 +52,18 @@ const UserProfile = () => {
     }
   }, [userEmail]);
 
+  // Function to format field names
+  const formatFieldName = (fieldName) => {
+    const formattedFieldName = {
+      firstName: "First Name",
+      lastName: "Last Name",
+      heightFt: "Height Ft",
+      heightIn: "Height In"
+    }[fieldName] || fieldName.charAt(0).toUpperCase() + fieldName.slice(1).replace(/([A-Z])/g, ' $1').trim();
+
+    return formattedFieldName;
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="sm">
@@ -63,11 +75,11 @@ const UserProfile = () => {
             User Profile
           </Typography>
           <Grid container spacing={2}>
-            {Object.entries(userData).map(([key, value]) => (
+            {Object.entries(userData).filter(([key]) => key !== 'userId').map(([key, value]) => (
               <React.Fragment key={key}>
                 <Grid item xs={6}>
                   <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'right', paddingRight: 2 }}>
-                    {key.charAt(0).toUpperCase() + key.slice(1)}:
+                    {formatFieldName(key)}:
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
