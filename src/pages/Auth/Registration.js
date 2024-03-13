@@ -1,22 +1,13 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useState } from 'react';
+import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, Divider, createTheme, ThemeProvider } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
+
+const healthHistoryOptions = ["Surgeries", "Food Allergies", "Respiratory Conditions", "Pregnancy And Childbirth", "Accident", "Infectious Diseases"];
 
 const defaultTheme = createTheme();
 
@@ -26,6 +17,14 @@ const Registration = () => {
   const [errors, setErrors] = React.useState({});
   const { setUserEmail } = useUser();
   const navigate = useNavigate();
+  const [healthHistory, setHealthHistory] = useState([]);
+
+  const handleHealthHistoryChange = (event) => {
+    const { name, checked } = event.target;
+    setHealthHistory(prev => 
+      checked ? [...prev, name] : prev.filter(item => item !== name)
+    );
+  };
   
   const validate = (event) => {
     const data = new FormData(event.currentTarget);
@@ -51,6 +50,7 @@ const Registration = () => {
     const formProps = Object.fromEntries(formData.entries());
 
     formProps.birthdate = birthdate;
+    formProps.healthHistory = healthHistory;
     try {
       const response = await fetch(`${ELEVATE_HEALTH_URL}/api/register`, {
         method: 'POST',
@@ -237,13 +237,30 @@ const Registration = () => {
                   helperText={errors.heightIn}
                 />
               </Grid>
-
-              <Grid item xs={12}>
+              <Divider sx={{ my: 2 }}>Health History</Divider>
+              <Box sx={{ mb: 2 }}>
+              {healthHistoryOptions.map((option, index) => (
+                  <Grid item xs={12} key={index}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onChange={handleHealthHistoryChange}
+                          name={option}
+                          color="primary"
+                        />
+                      }
+                      label={option}
+                    />
+                  </Grid>
+                ))}
+              </Box>
+              <Divider sx={{ my: 2 }}/>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
