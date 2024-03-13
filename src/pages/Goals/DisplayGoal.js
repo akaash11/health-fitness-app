@@ -42,7 +42,7 @@ const DisplayGoals = () => {
         <Typography variant="h4" component="h1" gutterBottom>
           ACHIEVE YOUR BEST
         </Typography>
-        <Button variant="contained" color="secondary" onClick={() => navigate('/create-goal')}>
+        <Button variant="contained" color="primary" onClick={() => navigate('/create-goal')}>
           Create a Goal
         </Button>
       </StyledContainer>
@@ -54,9 +54,9 @@ const DisplayGoals = () => {
           ACTIVE GOALS
         </Typography>
       </Divider>
-      {goals.map((goal, index) => (
+      {goals?.goals?.map((goal, index) => (
         <Paper key={index} elevation={2} sx={{ mt: 3, p: 2 }}>
-          <Typography variant="h6">{goal.activity} {goal.goalTarget} per week</Typography>
+          <Typography variant="h6">{goal.activity} {goal.goalTarget} {goal.goalType === 'distance' ? 'miles' : 'hours'} per week</Typography>
           <Typography color="textSecondary">{goal.progress} complete</Typography>
           <LinearProgress variant="determinate" value={(goal.progress / goal.goalTarget) * 100} />
           <Box display="flex" justifyContent="space-between" alignItems="center">
