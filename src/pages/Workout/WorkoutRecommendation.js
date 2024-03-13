@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia, Grid } from '@mui/material';
 import { workoutData as dummyWorkoutData} from '../../constants/Dummy';
 import { ELEVATE_HEALTH_URL } from '../../constants/UrlConstants';
 import { useUser } from '../../context/UserContext';
@@ -39,18 +39,33 @@ const WorkoutRecommendation = () => {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
+      <Typography
+        variant="h4"
+        gutterBottom
+        align="center"
+        sx={{
+          margin: '20px 0',
+          fontFamily: '"Roboto Condensed", sans-serif',
+          fontWeight: 700
+        }}
+      >
         Workout Recommendation
       </Typography>
       <Grid container spacing={2}>
         {workoutData.plans.map((plan, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {plan.excercise}
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', margin: '20px', boxShadow: 3 }}>
+              <CardMedia
+                component="img"
+                height="140"
+                image="YOUR_IMAGE_URL_HERE" 
+                alt="Exercise Image"
+              />
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Typography gutterBottom variant="h5" component="div">
+                  {plan.exercise}
                 </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                <Typography sx={{ mb: 1.5 }}>
                   Fitness Goal: {plan.fitnessGoal}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }}>
